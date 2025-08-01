@@ -1,0 +1,10 @@
+.auth-bg {
+  background: linear-gradient(to bottom right, #0f0f0f, #2e1065, #5b21b6);
+  position: relative;
+}
+
+.bg-dots {
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0.08;
+}
