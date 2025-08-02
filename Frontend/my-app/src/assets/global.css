@@ -1,0 +1,21 @@
+/* src/assets/global.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom right, #0f0f0f, #2e1065, #5b21b6);
+  position: relative;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0.08;
+  z-index: 0;
+  pointer-events: none;
+}
