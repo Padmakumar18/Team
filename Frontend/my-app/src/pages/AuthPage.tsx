@@ -2,6 +2,9 @@ import "../styles/AuthPage.css";
 
 import React, { useState } from "react";
 import type { FormEvent } from "react";
+import toast, { Toaster } from "react-hot-toast";
+
+import bcrypt from "bcryptjs";
 
 import { Eye, EyeOff } from "lucide-react";
 
@@ -35,17 +38,51 @@ const AuthPage: React.FC = () => {
   };
 
   const handleLogin = (e: FormEvent) => {
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(loginForm.password, salt);
+
+    console.log(salt);
+    console.log(hashedPassword);
     e.preventDefault();
     console.log("Login Data:", loginForm);
+    clearForm();
   };
 
   const handleSignup = (e: FormEvent) => {
     e.preventDefault();
+    if (validatePasswordConfirmation()) {
+      return;
+    }
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(loginForm.password, salt);
+    console.log(salt);
+    console.log(hashedPassword);
     console.log("Signup Data:", signupForm);
+    clearForm();
+  };
+
+  function validatePasswordConfirmation(): boolean {
+    if (signupForm.password !== signupForm.confirmPassword) {
+      toast.error("Passwords do not match.");
+      return true;
+    }
+    return false;
+  }
+
+  const clearForm = (): void => {
+    setSignupForm({
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
+
+    setLoginForm({ email: "", password: "" });
   };
 
   return (
     <div className="auth-bg min-h-screen flex items-center justify-center relative overflow-hidden">
+      <Toaster position="top-center" />
       <div className="absolute inset-0 pointer-events-none z-0 bg-dots" />
 
       <div
